@@ -1,46 +1,53 @@
-Shopify Order Fulfillment to Google Sheets Script
+**Shopify Order Fulfillment to Google Sheets Script**
+
 This app script allows you to automatically update a Google Sheet with Shopify order details whenever an order is placed. The script is triggered by a Shopify webhook that is set up for order fulfillment. It fetches the order details and appends them to a Google Sheet, including some hardcoded values.
 
-Features
-Automatically fetch Shopify order details upon order fulfillment.
-Extracts and displays customer information, order details, and shipping details in a Google Sheet.
-Adds hardcoded values such as ship-from address and delivery windows.
-Checks for duplicate order numbers to prevent duplication in the Google Sheet.
-How It Works
-Webhook Trigger: A webhook for order fulfillment is created in Shopify. When an order is fulfilled, Shopify sends the order details to the script via an HTTP POST request.
-Google Sheets: The script processes the data and appends it as a new row in a Google Sheet.
-Hardcoded Values: Some values like ship-from address, delivery time window, and SMS notification settings are hardcoded into the script.
-Script Overview
+**Features**
+
+* Automatically fetch Shopify order details upon order fulfillment.
+* Extracts and displays customer information, order details, and shipping details in a Google Sheet.
+* Adds hardcoded values such as ship-from address and delivery windows.
+* Checks for duplicate order numbers to prevent duplication in the Google Sheet.
+  
+**How It Works**
+
+**Webhook Trigger:** A webhook for order fulfillment is created in Shopify. When an order is fulfilled, Shopify sends the order details to the script via an HTTP POST request.
+**Google Sheets:** The script processes the data and appends it as a new row in a Google Sheet.
+**Hardcoded Values:** Some values like ship-from address, delivery time window, and SMS notification settings are hardcoded into the script.
+
+**Script Overview**
+
 Here is a breakdown of what the script does:
 
-Retrieve the Shopify Order Data:
+**Retrieve the Shopify Order Data:**
 
 The webhook sends order data in JSON format, which is parsed by the script.
 Key details like order number, customer information, order total, and shipping address are extracted.
-Extracting Custom Attributes:
+**Extracting Custom Attributes:**
 
 The script looks for specific custom attributes (note_attributes) like "DDM Delivery Type" and "Delivery Date" to handle delivery-specific logic.
-Hardcoded Values:
 
-Some values are hardcoded into the script for simplicity, such as:
-Ship From Name: Cake Craft UAE
-Ship From Address: Hor Al Anz East, Dubai
-Customer Mobile: 0585923497
-Delivery Time Window: Between 9:00 and 13:00
-SMS Notification: Enabled (TRUE)
-Duplicate Check:
+**Hardcoded Values:**
+
+* Some values are hardcoded into the script for simplicity, such as:
+* Ship From Name: Cake Craft UAE
+* Ship From Address: Hor Al Anz East, Dubai
+* Customer Mobile: 0585923497
+* Delivery Time Window: Between 9:00 and 13:00
+* SMS Notification: Enabled (TRUE)
+  
+**Duplicate Check:**
 
 Before appending a new order to the sheet, the script checks if the order number already exists to avoid duplicates.
-Append Order Details to Google Sheet:
 
-If the order number is new, it adds a row to the Google Sheet with all relevant details.
-Response:
+**Append Order Details to Google Sheet:**
 
-After processing the order, the script sends a success response back to Shopify.
-Google Sheet Columns
-The script appends the following data to the Google Sheet (in order):
+* If the order number is new, it adds a row to the Google Sheet with all relevant details.
 
-Delivery Date	After Time	Before Time	Customer Name	Customer Mobile	Emirate	Address	City	Country	No. of Packages	Package Details	COD Amount	Mode of Payment	Customer Note	Order Number	SMS	Delivery Type	AWB	Volume	Weight	Order Type	Ship From Name	Ship From Address	Ship From City	Ship From Mobile	Hangers	Shipment Packages
+**Response:**
+
+* After processing the order, the script sends a success response back to Shopify.
+
 
 **How to Set Up**
 **Create Google Sheet:**
