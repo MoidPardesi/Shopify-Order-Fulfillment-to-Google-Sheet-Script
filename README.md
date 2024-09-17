@@ -23,6 +23,7 @@ Here is a breakdown of what the script does:
 
 The webhook sends order data in JSON format, which is parsed by the script.
 Key details like order number, customer information, order total, and shipping address are extracted.
+
 **Extracting Custom Attributes:**
 
 The script looks for specific custom attributes (note_attributes) like "DDM Delivery Type" and "Delivery Date" to handle delivery-specific logic.
@@ -57,25 +58,26 @@ Before appending a new order to the sheet, the script checks if the order number
   
 **Install the Script:**
 
-Open the Google Sheet, go to Extensions > Apps Script.
-Paste the provided code into the script editor.
+* Open the Google Sheet, go to Extensions > Apps Script.
+* Paste the provided code into the script editor.
 
 **Set Up the Webhook in Shopify:**
 
-In your Shopify admin, go to Settings > Notifications.
-Scroll down to the Webhooks section and click Create webhook.
-Select the event as Order Fulfillment, set the format to JSON, and paste the Google Apps Script's URL.
+* In your Shopify admin, go to Settings > Notifications.
+* Scroll down to the Webhooks section and click Create webhook.
+* Select the event as Order Fulfillment, set the format to JSON, and paste the Google Apps Script's URL.
 
 **Deploy the Script:**
 
-In the Google Apps Script editor, click on Deploy > Manage deployments.
-Deploy the script as a web app with access set to "Anyone, even anonymous".
+* In the Google Apps Script editor, click on Deploy > Manage deployments.
+* Deploy the script as a web app with access set to "Anyone, even anonymous".
 
 **Testing:**
 
-Once the webhook is set up, fulfill a test order in your Shopify store to see the data populated in your Google Sheet.
+* Once the webhook is set up, fulfill a test order in your Shopify store to see the data populated in your Google Sheet.
 
 **Customization**
+
 If you need to modify the hardcoded values or add more details from the order, you can customize the script. Here are some values you can change:
 
 * Ship From Details: Modify the shipFromName, shipFromAddress, and shipFromCity variables if your ship-from location changes.
