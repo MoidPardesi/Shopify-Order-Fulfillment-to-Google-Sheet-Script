@@ -11,9 +11,9 @@ This app script allows you to automatically update a Google Sheet with Shopify o
   
 **How It Works**
 
-**Webhook Trigger:** A webhook for order fulfillment is created in Shopify. When an order is fulfilled, Shopify sends the order details to the script via an HTTP POST request.
-**Google Sheets:** The script processes the data and appends it as a new row in a Google Sheet.
-**Hardcoded Values:** Some values like ship-from address, delivery time window, and SMS notification settings are hardcoded into the script.
+* **Webhook Trigger:** A webhook for order fulfillment is created in Shopify. When an order is fulfilled, Shopify sends the order details to the script via an HTTP POST request.
+* **Google Sheets:** The script processes the data and appends it as a new row in a Google Sheet.
+* **Hardcoded Values:** Some values like ship-from address, delivery time window, and SMS notification settings are hardcoded into the script.
 
 **Script Overview**
 
