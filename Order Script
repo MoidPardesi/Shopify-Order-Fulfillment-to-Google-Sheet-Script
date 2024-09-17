@@ -1,0 +1,74 @@
+function doPost(e) {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  var data = JSON.parse(e.postData.contents);
+
+  var orderNumber = "#" + data.name; // Use the formatted order number (e.g., #1012)
+  var customerName = data.customer.first_name + " " + data.customer.last_name;
+  var customerMobile = data.shipping_address.phone || ''; // Use the phone number from shipping address
+  var email = data.email;
+  var orderTotal = data.total_price;
+  var orderDate = data.created_at;
+
+  var addressData = data.shipping_address;
+  var city = addressData.city || '';
+  var emirate = addressData.province || ''; // Replace province with emirate if needed
+  var country = addressData.country || '';
+  var address = addressData.address1 + ", " + addressData.address2;
+  var noteAttributes = data.note_attributes;
+  var deliveryDate = '';
+  var deliveryType = ''; // Initialize delivery type
+
+  for (var i = 0; i < noteAttributes.length; i++) {
+    if (noteAttributes[i].name === "DDM Delivery Type") {
+      deliveryType = noteAttributes[i].value; // Extract the delivery type
+    }
+    if (noteAttributes[i].name === "Delivery Date" && deliveryType === "Shipping") {
+      deliveryDate = noteAttributes[i].value; // Extract the delivery date if type is "Shipping"
+    }
+  }
+
+  var codAmount = data.total_price; // Assuming COD amount is the order total
+  var modeOfPayment = data.payment_gateway_names[0] || ''; // Get payment method
+  
+  var packageDetails = "Mode of Payment: " + modeOfPayment + ", Amount: " + codAmount;
+  
+  var customerNote = data.note || ''; // Get customer note
+
+  var shipFromName = "Cake Craft UAE"; // Hardcoded value
+  var shipFromAddress = "Hor Al Anz East"; // Hardcoded value
+  var shipFromCity = "Dubai"; // Hardcoded value
+  var shipFromMobile = "0585923497"; // Hardcoded value
+  var afterTime = "9:00"; // Hardcoded value
+  var beforeTime = "13:00"; // Hardcoded value
+  var noOfPackages = 1; // Hardcoded value
+  var sms = "TRUE"; // Hardcoded value
+  var orderType = "Delivery"; // Hardcoded value
+  var awb = ""; // Empty for now
+  var volume = ""; // Empty for now
+  var weight = ""; // Empty for now
+  var hangers = ""; // Empty for now
+  var shipmentPackages = ""; // Empty for now
+
+  // Check if the order number already exists in the sheet
+  var lastRow = sheet.getLastRow();
+  var orderExists = false;
+  for (var i = 2; i <= lastRow; i++) {
+    var existingOrderNumber = sheet.getRange(i, 15).getValue(); // Assuming the order number (Customer Order No) is now in column 15
+    if (existingOrderNumber == orderNumber) {
+      orderExists = true;
+      break;
+    }
+  }
+
+  if (!orderExists) {
+    sheet.appendRow([
+      deliveryDate, afterTime, beforeTime, customerName, customerMobile, 
+      emirate, address, city, country, noOfPackages, packageDetails, codAmount, 
+      modeOfPayment, customerNote, orderNumber, sms, deliveryType, awb, volume, 
+      weight, orderType, shipFromName, shipFromAddress, shipFromCity, 
+      shipFromMobile, hangers, shipmentPackages
+    ]);
+  }
+
+  return ContentService.createTextOutput(JSON.stringify({"status": "success"})).setMimeType(ContentService.MimeType.JSON);
+}
